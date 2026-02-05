@@ -1,0 +1,106 @@
+@extends('Admin.layout.adminlayout')
+@section('title', 'Sliders')
+@section('content')
+    <div class="container-fluid pt-4 px-4">
+        <div class="row mb-3">
+            <div class="col-12">
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            </div>
+        </div>
+
+        {{-- Header: Title + Add Button --}}
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Sliders</h4>
+                <a class="btn btn-primary rounded-pill" href="{{ route('admin.add.slider') }}">
+                    <i class="fas fa-plus me-1"></i> Add Slider
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-12">
+                <div class="bg-light rounded h-100 p-4">
+                    <table class="table table-striped table-hover align-middle text-center">
+                        <thead class="table-primary">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Sub Title</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php $count = 1; @endphp
+                            @forelse ($sliders as $slider)
+                                <tr>
+                                    <th scope="row">{{ $count }}</th>
+                                    <td>
+                                        <img src="{{ asset('Slider/' . $slider->image) }}"
+                                            alt="{{ $slider->title ?? 'Slider Image' }}" width="100px"
+                                            data-bs-toggle="modal" data-bs-target="#imageModal"
+                                            data-image="{{ asset('Slider/' . $slider->image) }}">
+                                    </td>
+                                    <td>{{ $slider->title }}</td>
+                                    <td>{{ $slider->sub_title }}</td>
+                                    <td>{{ Str::limit($slider->description, 50) }}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-warning me-1"
+                                            href="{{ route('admin.edit.slider', $slider->id) }}">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-danger"
+                                            href="{{ route('admin.delete.slider', $slider->id) }}"
+                                            onclick="return confirm('Are you sure you want to delete this slider?');">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                @php $count++; @endphp
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">No sliders found.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Slider Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" alt="Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var imageModal = document.getElementById('imageModal');
+        imageModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var imageUrl = button.getAttribute('data-image');
+            var modalImage = imageModal.querySelector('.modal-body #modalImage');
+            modalImage.src = imageUrl;
+        });
+    </script>
+@endsection
