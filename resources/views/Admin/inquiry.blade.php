@@ -55,7 +55,8 @@
                                         <td>{{ $inquiry->subject ?? '' }}</td>
                                         <td>{{ $inquiry->role ?? '' }}</td>
                                         <td>{{ $inquiry->interest ?? '' }}</td>
-                                        <td>{{ $inquiry->message ?? '' }}</td>
+                                        <td class="text-start">{{ Str::limit($inquiry->message, 50) ?? '' }}</td>
+
                                         <td>{{ $inquiry->created_at->format('d-m-Y') }}</td>
 
                                         <td>
