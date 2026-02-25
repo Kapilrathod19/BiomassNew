@@ -41,7 +41,11 @@
                             <select name="time" class="form-select" id="time">
                                 <option value="">Select Time Duration</option>
                                 <option value="Monthly">Monthly</option>
-                                <option value="Yearly">Yearly</option>
+                                <option value="1 Year">1 Year</option>
+                                <option value="3 Year">3 Year</option>
+                                <option value="5 Year">5 Year</option>
+                                <option value="10 Year">10 Year</option>
+                                <option value="15 Year">15 Year</option>
                             </select>
                             @if ($errors->has('price'))
                                 <p class="text-danger">{{ $errors->first('price') }}</p>

@@ -44,7 +44,11 @@
                             <select name="time" class="form-select" id="time">
                                 <option value="">Select Time Duration</option>
                                 <option value="Monthly" {{ old('time', $plan->time) == 'Monthly' ? 'selected' : '' }}>Monthly</option>
-                                <option value="Yearly" {{ old('time', $plan->time) == 'Yearly' ? 'selected' : '' }}>Yearly</option>
+                                <option value="1 Year" {{ old('time', $plan->time) == '1 Year' ? 'selected' : '' }}>1 Year</option>
+                                <option value="3 Year" {{ old('time', $plan->time) == '3 Year' ? 'selected' : '' }}>3 Year</option>
+                                <option value="5 Year" {{ old('time', $plan->time) == '5 Year' ? 'selected' : '' }}>5 Year</option>
+                                <option value="10 Year" {{ old('time', $plan->time) == '10 Year' ? 'selected' : '' }}>10 Year</option>
+                                <option value="15 Year" {{ old('time', $plan->time) == '15 Year' ? 'selected' : '' }}>15 Year</option>
                             </select>
                             @if ($errors->has('time'))
                                 <p class="text-danger">{{ $errors->first('time') }}</p>
