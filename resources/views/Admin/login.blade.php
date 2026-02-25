@@ -38,6 +38,33 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('Admin/css/style.css') }}" rel="stylesheet">
+
+    <style>
+        #togglePassword {
+            padding: 0.5rem 0.75rem;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        #togglePassword:hover {
+            color: #0d6efd;
+            transform: scale(1.1);
+        }
+
+        #togglePassword:active {
+            transform: scale(0.95);
+        }
+
+        .form-control {
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+    </style>
 </head>
 
 <body>
@@ -60,7 +87,7 @@
                         <div class="d-flex align-items-center justify-content-between flex-column mb-3">
                             @if ($WebsiteLogo && $WebsiteLogo->logo)
                                 <img src="{{ asset('WebsiteLogo/' . $WebsiteLogo->logo) }}" class="mb-3"
-                                    alt="Logo" width="200" height="70">
+                                    alt="Logo" style="max-width: 100%; height: auto; width: 200px;">
                             @endif
                             <h3>Admin Sign In</h3>
                         </div>
@@ -79,10 +106,14 @@
                                 <label for="email">Email address</label>
                                 <span id="emailError" role="alert" class="text-danger"></span>
                             </div>
-                            <div class="form-floating mb-4">
-                                <input type="password" class="form-control" id="Password" name="password"
+                            <div class="form-floating mb-4 position-relative">
+                                <input type="password" class="form-control pe-5" id="Password" name="password"
                                     value="{{ old('password') }}" placeholder="Password">
                                 <label for="Password">Password</label>
+                                <button type="button" class="btn btn-link position-absolute end-0 top-50 translate-middle-y border-0 text-decoration-none text-dark" 
+                                    id="togglePassword" onclick="togglePasswordVisibility()" style="cursor: pointer; z-index: 10;">
+                                    <i class="fa fa-eye"></i>
+                                </button>
                                 <span id="passwordError" role="alert" class="text-danger"></span>
                             </div>
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
@@ -133,6 +164,22 @@
         }
 
         return isValid;
+    }
+
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("Password");
+        const toggleButton = document.getElementById("togglePassword");
+        const icon = toggleButton.querySelector("i");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
     }
 </script>
 
