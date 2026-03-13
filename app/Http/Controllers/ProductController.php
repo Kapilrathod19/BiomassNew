@@ -23,34 +23,33 @@ class ProductController extends Controller
 
     public function Store_product(Request $request)
     {
+        $request->validate([
+            'category' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'details' => 'required|string',
+            'size' => 'required',
+            'gcv' => 'required',
+            'moisture' => 'required',
+            'image' => 'nullable|image',
+            'status' => 'required|in:0,1',
+        ]);
+
+        $fileName = null;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '.' . $file->extension();
+            $file->move(public_path('products'), $fileName);
+        }
+
+        $slug = Str::slug($request->title);
+        $originalSlug = $slug;
+        $counter = 1;
+        while (Product::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $counter++;
+        }
+
         try {
-            $request->validate([
-                'category' => 'required|string|max:255',
-                'title' => 'required|string|max:255',
-                'details' => 'required|string',
-                'size' => 'required',
-                'gcv' => 'required',
-                'moisture' => 'required',
-                'image' => 'nullable|image',
-                'status' => 'required|in:0,1',
-            ]);
-
-            $fileName = null;
-
-            if ($request->hasFile('image')) {
-                $file = $request->file('image');
-                $fileName = time() . '.' . $file->extension();
-                $file->move(public_path('products'), $fileName);
-            }
-
-            $slug = Str::slug($request->title);
-            $originalSlug = $slug;
-            $counter = 1;
-            while (Product::where('slug', $slug)->exists()) {
-                $slug = $originalSlug . '-' . $counter++;
-            }
-
-
             Product::create([
                 'category' => $request->category,
                 'title' => $request->title,
@@ -82,36 +81,35 @@ class ProductController extends Controller
 
     public function Update_product(Request $request)
     {
+        $request->validate([
+            'category' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'details' => 'required|string',
+            'size' => 'required',
+            'gcv' => 'required',
+            'moisture' => 'required',
+            'image' => 'nullable|image',
+            'status' => 'required|in:0,1',
+        ]);
+
+        $product = Product::findOrFail($request->id);
+        if ($request->hasFile('image')) {
+            if ($product->image && file_exists(public_path('products/' . $product->image))) {
+                unlink(public_path('products/' . $product->image));
+            }
+            $file = $request->file('image');
+            $fileName = time() . '.' . $file->extension();
+            $file->move(public_path('products'), $fileName);
+            $product->image = $fileName;
+        }
+
+        $slug = Str::slug($request->title);
+        $originalSlug = $slug;
+        $counter = 1;
+        while (Product::where('slug', $slug)->where('id', '!=', $product->id)->exists()) {
+            $slug = $originalSlug . '-' . $counter++;
+        }
         try {
-            $request->validate([
-                'category' => 'required|string|max:255',
-                'title' => 'required|string|max:255',
-                'details' => 'required|string',
-                'size' => 'required',
-                'gcv' => 'required',
-                'moisture' => 'required',
-                'image' => 'nullable|image',
-                'status' => 'required|in:0,1',
-            ]);
-
-            $product = Product::findOrFail($request->id);
-            if ($request->hasFile('image')) {
-                if ($product->image && file_exists(public_path('products/' . $product->image))) {
-                    unlink(public_path('products/' . $product->image));
-                }
-                $file = $request->file('image');
-                $fileName = time() . '.' . $file->extension();
-                $file->move(public_path('products'), $fileName);
-                $product->image = $fileName;
-            }
-
-            $slug = Str::slug($request->title);
-            $originalSlug = $slug;
-            $counter = 1;
-            while (Product::where('slug', $slug)->where('id', '!=', $product->id)->exists()) {
-                $slug = $originalSlug . '-' . $counter++;
-            }
-
             $product->category = $request->category;
             $product->title = $request->title;
             $product->slug = $slug;
