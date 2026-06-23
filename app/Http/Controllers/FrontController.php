@@ -144,7 +144,7 @@ class FrontController extends Controller
 
     public function product_details($slug)
     {
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::where('slug', $slug)->firstOrFail();
         return view('front.product_details', compact('product'));
     }
 

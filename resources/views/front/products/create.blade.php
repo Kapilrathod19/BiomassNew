@@ -28,17 +28,17 @@
         </div>
         <div class="mb-3">
             <label>Size</label>
-            <input type="text" name="size" class="form-control" value="{{ old('size') }}" required>
+            <input type="text" name="size" class="form-control" value="{{ old('size') }}">
             @error('size')<span class="text-danger small">{{ $message }}</span>@enderror
         </div>
         <div class="mb-3">
             <label>GCV</label>
-            <input type="text" name="gcv" class="form-control" value="{{ old('gcv') }}" required>
+            <input type="text" name="gcv" class="form-control" value="{{ old('gcv') }}">
             @error('gcv')<span class="text-danger small">{{ $message }}</span>@enderror
         </div>
         <div class="mb-3">
             <label>Moisture</label>
-            <input type="text" name="moisture" class="form-control" value="{{ old('moisture') }}" required>
+            <input type="text" name="moisture" class="form-control" value="{{ old('moisture') }}">
             @error('moisture')<span class="text-danger small">{{ $message }}</span>@enderror
         </div>
         <div class="mb-3">

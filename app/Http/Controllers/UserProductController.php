@@ -26,9 +26,9 @@ class UserProductController extends Controller
             'category' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'details' => 'required|string',
-            'size' => 'required',
-            'gcv' => 'required',
-            'moisture' => 'required',
+            'size' => 'nullable',
+            'gcv' => 'nullable',
+            'moisture' => 'nullable',
             'image' => 'nullable|image',
         ]);
 

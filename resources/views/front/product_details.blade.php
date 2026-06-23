@@ -25,9 +25,15 @@
                     <h1 class="display-6">{{ $product->title ?? '' }}</h1>
                   </div>
                   {!! $product->details !!}
-                  <p class="fs-5 fw-medium fst-italic text-primary">SIZE : {{ $product->size ?? '' }}</p>
-                  <p class="fs-5 fw-medium fst-italic text-primary">GCV : {{ $product->gcv ?? '' }}</p>
-                  <p class="fs-5 fw-medium fst-italic text-primary">MOISTURE : {{ $product->moisture ?? '' }}</p>
+                  @if(!empty($product->size))
+                      <p class="fs-5 fw-medium fst-italic text-primary">SIZE : {{ $product->size }}</p>
+                  @endif
+                  @if(!empty($product->gcv))
+                      <p class="fs-5 fw-medium fst-italic text-primary">GCV : {{ $product->gcv }}</p>
+                  @endif
+                  @if(!empty($product->moisture))
+                      <p class="fs-5 fw-medium fst-italic text-primary">MOISTURE : {{ $product->moisture }}</p>
+                  @endif
                   <p class="fs-5 fw-medium fst-italic text-primary">CATEGORY : {{ $product->category ?? '' }}</p>
                 </div>
             </div>
