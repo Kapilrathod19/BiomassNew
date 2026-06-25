@@ -19,7 +19,7 @@
             <div class="row g-4">
                 @foreach($plans as $plan)
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{ $loop->iteration }}s">
-                        <div class="card shadow-lg border-0 rounded-4 h-100 pricing-card text-center position-relative overflow-hidden">
+                        <div class="card shadow-lg border-0 rounded-4 h-100 pricing-card position-relative overflow-hidden" style="text-align:justify;">
                             <div class="card-header bg-primary text-white rounded-top-4 py-4">
                                 <h4 class="mb-1">{{ $plan->title }}</h4>
                                 <h2 class="fw-bold mb-0">

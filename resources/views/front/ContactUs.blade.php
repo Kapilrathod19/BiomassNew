@@ -45,7 +45,8 @@
                 @endif
             </div>
             <div class="row g-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="{{ !empty($ContactUs->map_link) ? 'col-lg-6' : 'col-lg-8 mx-auto' }} wow fadeInUp"
+                    data-wow-delay="0.1s">
                     <div class="contact-result"></div>
 
                     <p class="fs-5 fw-medium fst-italic text-primary">Inquire Now</p>
@@ -163,13 +164,13 @@
                     </form>
 
                 </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                    @if ($ContactUs->map_link)
+                @if ($ContactUs->map_link)
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="h-100">
                             {!! $ContactUs->map_link !!}
                         </div>
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
