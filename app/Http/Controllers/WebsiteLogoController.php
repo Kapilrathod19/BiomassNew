@@ -18,8 +18,8 @@ class WebsiteLogoController extends Controller
     {
         try {
             $validated = $request->validate([
-                'id' => 'nullable|exists:website_logo,id',
-                'logo' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+                'id' => 'nullable|exists:website_logos,id',
+                'logo' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048',
                 'name' => 'nullable|string|max:255', 
             ]);
 
