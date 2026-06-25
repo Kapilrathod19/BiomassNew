@@ -25,7 +25,7 @@
                         <thead class="table-primary">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">User Name</th>
+                                {{-- <th scope="col">User Name</th> --}}
                                 <th scope="col">Title</th>
                                 <th scope="col">Details</th>
                                 <th scope="col">Image</th>
@@ -37,7 +37,7 @@
                             @foreach ($products as $product)
                                 <tr style="{{ $product->status == 0 ? 'background-color: #f8d7da;' : '' }}">
                                     <th scope="row">{{ $count }}</th>
-                                    <td>{{ $product->user->name ?? 'Admin' }}</td>
+                                    {{-- <td>{{ $product->user->name ?? 'Admin' }}</td> --}}
                                     <td>{{ $product->title ?? '' }}</td>
                                     <td>{!! Str::limit($product->details, 25, '...') !!}</td>
                                     <td>
@@ -46,11 +46,11 @@
                                             data-image="{{ asset('products/' . $product->image) }}">
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-warning me-1"
+                                        <a class="btn btn-sm btn-warning m-1"
                                             href="{{ route('admin.edit.product', $product->id) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-sm btn-danger"
+                                        <a class="btn btn-sm btn-danger m-1"
                                             href="{{ route('admin.delete.product', $product->id) }}"
                                             onclick="return confirm('Are you sure you want to delete this product?');">
                                             <i class="fas fa-trash-alt"></i>
